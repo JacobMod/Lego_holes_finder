@@ -8,8 +8,6 @@ class JsonHandler:
         with open(input_file) as f:
             data = json.load(f)
 
-        data = self.change_values_to_int(data)
-
         return data
 
 

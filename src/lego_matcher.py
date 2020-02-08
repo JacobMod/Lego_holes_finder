@@ -23,7 +23,6 @@ class LegoMatcher:
         return masked_image
 
 
-
     def rectangle_condition(self, seperate_lego):
         number_of_objects = 0
        
@@ -128,8 +127,8 @@ class LegoMatcher:
             number_of_holes, right_places)    
         
                  
-    
         return right_places.tolist()
+
 
     #assign not matched with full completed
     def assign_not_completed(self, same_number, detect_list, json_data, name, number_of_holes, right_places):
@@ -145,6 +144,19 @@ class LegoMatcher:
 
         return right_places, detect_list
 
+
+    def get_holes_in_right_order(self, images, json_data, json_labels):
+        right_order_holes = []
+        for n, image in enumerate(images):
+            lego_bricks, number_of_holes  = LegoFinder().find_legos_holes(image)
+            detect = []
+            for l in lego_bricks:
+                detect.append(LegoMatcher().get_colors_lego_number(l))
+                
+            right_order_holes.append(LegoMatcher().assign(json_data, 
+                detect, json_labels[n], number_of_holes))
+        
+        return right_order_holes   
                     
                     
 
